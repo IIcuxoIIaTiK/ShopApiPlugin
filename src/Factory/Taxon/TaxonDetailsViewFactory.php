@@ -52,7 +52,7 @@ final class TaxonDetailsViewFactory implements TaxonDetailsViewFactoryInterface
 
     private function buildTaxonView(TaxonInterface $taxon, $locale): TaxonView
     {
-        $this->taxonViewFactory->setDefaultIncludes(['code', 'name'/*, 'images'*/]);
+        $this->taxonViewFactory->setDefaultIncludes(['code', 'name'/*, 'images'*/,'metaTitle', 'metaDescription']);
         $taxonView = $this->taxonViewFactory->create($taxon, $locale);
 
         foreach ($taxon->getChildren() as $childTaxon) {
