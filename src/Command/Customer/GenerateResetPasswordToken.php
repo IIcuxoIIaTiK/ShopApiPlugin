@@ -9,15 +9,15 @@ use Sylius\ShopApiPlugin\Command\CommandInterface;
 class GenerateResetPasswordToken implements CommandInterface
 {
     /** @var string */
-    protected $email;
+    protected $username;
 
-    public function __construct(string $email)
+    public function __construct(string $username)
     {
-        $this->email = $email;
+        $this->username = $username;
     }
 
-    public function email(): string
+    public function username(): string
     {
-        return $this->email;
+        return $this->username;
     }
 }

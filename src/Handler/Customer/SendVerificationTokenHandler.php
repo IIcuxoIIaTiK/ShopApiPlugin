@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Sylius\ShopApiPlugin\Handler\Customer;
 
+use Http\Discovery\Exception\NotFoundException;
 use Sylius\Component\Core\Model\ShopUserInterface;
 use Sylius\Component\Mailer\Sender\SenderInterface;
 use Sylius\Component\User\Repository\UserRepositoryInterface;
@@ -27,17 +28,24 @@ final class SendVerificationTokenHandler
 
     public function __invoke(SendVerificationToken $resendVerificationToken): void
     {
-        $email = $resendVerificationToken->email();
+        $username = $resendVerificationToken->username();
 
         /** @var ShopUserInterface $user */
-        $user = $this->userRepository->findOneByEmail($email);
-
-        Assert::notNull($user, sprintf('User with %s email has not been found.', $email));
-        Assert::notNull($user->getEmailVerificationToken(), sprintf('User with %s email has not verification token defined.', $email));
-        $this->sender->send(
-            Emails::EMAIL_VERIFICATION_TOKEN,
-            [$email],
-            ['user' => $user, 'channelCode' => $resendVerificationToken->channelCode(), 'frontUrl' => getenv('FRONT_URL')]
-        );
+        $user = $this->userRepository->findOneBy(['username' => $username]);
+        Assert::notNull($user, sprintf('User with %s username has not been found.', $username));
+        Assert::notNull($user->getEmailVerificationToken(), sprintf('User with %s username has not verification token defined.', $username));
+        //если username -> почта
+        if($user->getEmail() == $username){
+            $this->sender->send(
+                Emails::EMAIL_VERIFICATION_TOKEN,
+                [$username],
+                ['user' => $user, 'channelCode' => $resendVerificationToken->channelCode(), 'frontUrl' => getenv('FRONT_URL')]
+            );
+        }
+        //если username -> номер телефона
+        if($user->getCustomer()->getPhoneNumber() == $username){
+            //TODO: вот тут севис отправки смсок
+            dd($user->getEmailVerificationToken());
+        }
     }
 }

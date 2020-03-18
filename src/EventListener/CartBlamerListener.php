@@ -56,6 +56,6 @@ final class CartBlamerListener
             return;
         }
 
-        $this->bus->dispatch(new AssignCustomerToCart($token, $user->getCustomer()->getEmail()));
+        $this->bus->dispatch(new AssignCustomerToCart($token, $user->getUsername()));
     }
 }

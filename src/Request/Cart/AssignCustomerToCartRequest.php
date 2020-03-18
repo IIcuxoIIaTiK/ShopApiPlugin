@@ -15,12 +15,12 @@ class AssignCustomerToCartRequest implements RequestInterface
     protected $token;
 
     /** @var string|null */
-    protected $email;
+    protected $username;
 
     protected function __construct(Request $request)
     {
         $this->token = $request->attributes->get('token');
-        $this->email = $request->request->get('email');
+        $this->username = $request->request->get('username');
     }
 
     public static function fromHttpRequest(Request $request): RequestInterface
@@ -30,6 +30,6 @@ class AssignCustomerToCartRequest implements RequestInterface
 
     public function getCommand(): CommandInterface
     {
-        return new AssignCustomerToCart($this->token, $this->email);
+        return new AssignCustomerToCart($this->token, $this->username);
     }
 }

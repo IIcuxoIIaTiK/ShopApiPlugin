@@ -12,11 +12,12 @@ use Symfony\Component\HttpFoundation\Request;
 class GenerateResetPasswordTokenRequest implements RequestInterface
 {
     /** @var string */
-    protected $email;
+    protected $username;
 
     protected function __construct(Request $request)
     {
-        $this->email = $request->request->get('email');
+        $this->username = $request->request->get('username');
+
     }
 
     public static function fromHttpRequest(Request $request): RequestInterface
@@ -26,6 +27,6 @@ class GenerateResetPasswordTokenRequest implements RequestInterface
 
     public function getCommand(): CommandInterface
     {
-        return new GenerateResetPasswordToken($this->email);
+        return new GenerateResetPasswordToken($this->username);
     }
 }

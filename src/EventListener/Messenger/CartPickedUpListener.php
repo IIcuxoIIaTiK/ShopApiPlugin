@@ -30,8 +30,8 @@ final class CartPickedUpListener
         }
 
         $shopUser = $this->loggedInShopUserProvider->provide();
-        $email = $shopUser->getCustomer()->getEmail();
+        $username = $shopUser->getUsername();
 
-        $this->bus->dispatch(new AssignCustomerToCart($cartPickedUp->orderToken(), $email));
+        $this->bus->dispatch(new AssignCustomerToCart($cartPickedUp->orderToken(), $username));
     }
 }

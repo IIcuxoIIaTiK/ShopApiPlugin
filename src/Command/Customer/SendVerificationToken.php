@@ -9,20 +9,20 @@ use Sylius\ShopApiPlugin\Command\CommandInterface;
 class SendVerificationToken implements CommandInterface
 {
     /** @var string */
-    protected $email;
+    protected $username;
 
     /** @var string */
     protected $channelCode;
 
-    public function __construct(string $email, string $channelCode)
+    public function __construct(string $username, string $channelCode)
     {
-        $this->email = $email;
+        $this->username = $username;
         $this->channelCode = $channelCode;
     }
 
-    public function email(): string
+    public function username(): string
     {
-        return $this->email;
+        return $this->username;
     }
 
     public function channelCode(): string

@@ -13,6 +13,7 @@ use Webmozart\Assert\Assert;
 
 final class SendResetPasswordTokenHandler
 {
+
     /** @var UserRepositoryInterface */
     private $userRepository;
 
@@ -22,23 +23,32 @@ final class SendResetPasswordTokenHandler
     public function __construct(UserRepositoryInterface $userRepository, SenderInterface $sender)
     {
         $this->userRepository = $userRepository;
-        $this->sender = $sender;
+        $this->sender         = $sender;
     }
 
     public function __invoke(SendResetPasswordToken $resendResetPasswordToken): void
     {
-        $email = $resendResetPasswordToken->email();
+        $username = $resendResetPasswordToken->username();
 
         /** @var ShopUserInterface $user */
-        $user = $this->userRepository->findOneByEmail($email);
+        $user = $this->userRepository->findOneBy(['username' => $username]);
 
-        Assert::notNull($user, sprintf('User with %s email has not been found.', $email));
-        Assert::notNull($user->getPasswordResetToken(), sprintf('User with %s email has not verification token defined.', $email));
-
-        $this->sender->send(
-            Emails::EMAIL_RESET_PASSWORD_TOKEN,
-            [$email],
-            ['user' => $user, 'channelCode' => $resendResetPasswordToken->channelCode()]
+        Assert::notNull($user, sprintf('User with %s username has not been found.', $username));
+        Assert::notNull($user->getPasswordResetToken(),
+            sprintf('User with %s username has not verification token defined.', $username)
         );
+
+        //если username -> почта
+        if($user->getEmail() == $username){
+            $this->sender->send(Emails::EMAIL_RESET_PASSWORD_TOKEN,
+                [$username],
+                ['user' => $user, 'channelCode' => $resendResetPasswordToken->channelCode()]
+            );
+        }
+        //если username -> номер телефона
+        if($user->getCustomer()->getPhoneNumber() == $username){
+            //TODO: вот тут севис отправки смсок
+            dd($user->getEmailVerificationToken());
+        }
     }
 }

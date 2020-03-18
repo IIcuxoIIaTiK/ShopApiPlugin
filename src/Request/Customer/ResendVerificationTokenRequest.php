@@ -13,14 +13,14 @@ use Symfony\Component\HttpFoundation\Request;
 class ResendVerificationTokenRequest implements ChannelBasedRequestInterface
 {
     /** @var string */
-    protected $email;
+    protected $username;
 
     /** @var string */
     protected $channelCode;
 
     protected function __construct(Request $request, string $channelCode)
     {
-        $this->email = $request->request->get('email');
+        $this->username = $request->request->get('username');
         $this->channelCode = $channelCode;
     }
 
@@ -31,6 +31,6 @@ class ResendVerificationTokenRequest implements ChannelBasedRequestInterface
 
     public function getCommand(): CommandInterface
     {
-        return new SendVerificationToken($this->email, $this->channelCode);
+        return new SendVerificationToken($this->username, $this->channelCode);
     }
 }

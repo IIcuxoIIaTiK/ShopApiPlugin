@@ -6,9 +6,10 @@
     <services>
         <service id="sylius.shop_api_plugin.provider.customer_provider"
                  class="Sylius\ShopApiPlugin\Provider\ShopUserAwareCustomerProvider">
-            <argument type="service" id="sylius.repository.customer"/>
+            <argument type="service" id="App\Domain\Customer\Repository\CustomerRepository"/>
             <argument type="service" id="sylius.factory.customer"/>
             <argument type="service" id="sylius.shop_api_plugin.provider.current_user_provider"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
         </service>
 
         <service id="sylius.shop_api_plugin.provider.product_reviewer_provider"

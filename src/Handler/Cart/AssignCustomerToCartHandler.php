@@ -39,7 +39,7 @@ final class AssignCustomerToCartHandler
 
         Assert::notNull($cart, sprintf('Order with %s token has not been found.', $assignOrderToCustomer->orderToken()));
 
-        $customer = $this->customerProvider->provide($assignOrderToCustomer->email());
+        $customer = $this->customerProvider->provide($assignOrderToCustomer->username());
 
         $cart->setCustomer($customer);
 

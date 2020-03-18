@@ -12,12 +12,12 @@ class AssignCustomerToCart implements CommandInterface
     protected $orderToken;
 
     /** @var string */
-    protected $email;
+    protected $username;
 
-    public function __construct(string $orderToken, string $email)
+    public function __construct(string $orderToken, string $username)
     {
         $this->orderToken = $orderToken;
-        $this->email = $email;
+        $this->username = $username;
     }
 
     public function orderToken(): string
@@ -25,8 +25,8 @@ class AssignCustomerToCart implements CommandInterface
         return $this->orderToken;
     }
 
-    public function email(): string
+    public function username(): string
     {
-        return $this->email;
+        return $this->username;
     }
 }
