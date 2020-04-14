@@ -38,8 +38,7 @@ final class AssignCustomerToCartHandler
         $cart = $this->cartRepository->findOneBy(['tokenValue' => $assignOrderToCustomer->orderToken()]);
 
         Assert::notNull($cart, sprintf('Order with %s token has not been found.', $assignOrderToCustomer->orderToken()));
-
-        $customer = $this->customerProvider->provide($assignOrderToCustomer->email());
+        $customer = $this->customerProvider->provide($assignOrderToCustomer->email() ? $assignOrderToCustomer->email() : $assignOrderToCustomer->phoneNumber());
 
         $cart->setCustomer($customer);
 
