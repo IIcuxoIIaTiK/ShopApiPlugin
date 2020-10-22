@@ -38,7 +38,7 @@ class CartItemOnHandValidator extends ConstraintValidator
         foreach ($order->getItems() as $key => $item){
 
             if($item->getVariant()->getTracked() == true && $item->getVariant()->getOnHand() == 0){
-                $this->context->buildViolation($this->translator->trans($constraint->message, ['name' => str_replace("&nbsp;", "", $item->getVariantName())]))->atPath('items.' . $key)->addViolation();
+                $this->context->buildViolation($this->translator->trans($constraint->message, ['name' => str_replace("&nbsp;", "", $item->getVariantName())]))->atPath('items[' . $key . ']')->addViolation();
             }
         }
     }
