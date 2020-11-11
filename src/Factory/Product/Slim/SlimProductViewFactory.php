@@ -26,6 +26,7 @@ class SlimProductViewFactory implements ProductViewFactoryInterface
     use Transformer;
 
     public $defaultIncludes = [
+        'id',
         'code',
         'isFavorite',
         'name',
@@ -85,6 +86,12 @@ class SlimProductViewFactory implements ProductViewFactoryInterface
         return $productView;
     }
 
+    public function getId(ProductInterface $product, $productView)
+    {
+        $productView->id = $product->getId();
+
+        return $productView;
+    }
     public function getCode(ProductInterface $product, $productView)
     {
         $productView->code = $product->getCode();

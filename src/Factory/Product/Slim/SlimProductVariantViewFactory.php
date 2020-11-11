@@ -18,6 +18,7 @@ final class SlimProductVariantViewFactory implements ProductVariantViewFactoryIn
     use Transformer;
 
     public $defaultIncludes = [
+        'id',
         'code',
         'position',
         'price',
@@ -52,8 +53,14 @@ final class SlimProductVariantViewFactory implements ProductVariantViewFactoryIn
 
         /** @var ProductVariantView $variantView */
         $variantView = $this->generate($variant);
-
         return $variantView;
+    }
+
+    public function getId(ProductVariantInterface $variant, $view)
+    {
+        $view->id = $variant->getId();
+
+        return $view;
     }
 
     public function getCode(ProductVariantInterface $variant, $view)

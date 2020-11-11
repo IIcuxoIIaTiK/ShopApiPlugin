@@ -2,6 +2,9 @@ Sylius\ShopApiPlugin\View\Product\ProductVariantView:
     exclusion_policy: ALL
     xml_root_name: product_variant_view
     properties:
+        id:
+            expose: true
+            type: int
         code:
             expose: true
             type: string
