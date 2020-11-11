@@ -35,6 +35,7 @@ final class ProductVariantViewFactory implements ProductVariantViewFactoryInterf
             throw new ViewCreationException('Variant does not have pricing.');
         }
 
+        $variantView->id = $variant->getId();
         $variantView->code = $variant->getCode();
         $variantView->position = $variant->getPosition();
         $variantView->tracked = $variant->getTracked();

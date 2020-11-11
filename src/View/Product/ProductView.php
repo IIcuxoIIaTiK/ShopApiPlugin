@@ -6,6 +6,9 @@ namespace Sylius\ShopApiPlugin\View\Product;
 
 class ProductView
 {
+    /** @var int */
+    public $id;
+
     /** @var string */
     public $code;
 

@@ -9,6 +9,10 @@ use Sylius\ShopApiPlugin\View\PriceView;
 
 class ProductVariantView
 {
+
+    /** @var int */
+    public $id;
+
     /** @var string */
     public $code;
 

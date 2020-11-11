@@ -2,6 +2,9 @@ Sylius\ShopApiPlugin\View\Product\ProductView:
     exclusion_policy: ALL
     xml_root_name: product_view
     properties:
+        id:
+            expose: true
+            type: int
         code:
             expose: true
             type: string

@@ -49,6 +49,7 @@ final class ProductViewFactory implements ProductViewFactoryInterface
     {
         /** @var ProductView $productView */
         $productView = new $this->productViewClass();
+        $productView->id = $product->getId();
         $productView->code = $product->getCode();
         $productView->averageRating = (string) $product->getAverageRating();
 

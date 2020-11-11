@@ -44,7 +44,7 @@ final class SlimCartItemViewFactory implements CartItemViewFactoryInterface
         $itemView->quantity = $item->getQuantity();
         $itemView->total    = $item->getTotal();
 
-        $this->productViewFactory->setDefaultIncludes(['code', 'name', 'slug']);
+        $this->productViewFactory->setDefaultIncludes(['id', 'code', 'name', 'slug']);
         $itemView->product  = $this->productViewFactory->create($item->getProduct(), $channel, $locale);
 
         $itemView->product->variants =
